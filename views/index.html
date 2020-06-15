@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>德州AQI数据</title>
+	<script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts.min.js"></script>
+	<script src="all.js"></script>
+</head>
+<body>
+    <div id="chart-one" style="width: 100%;height:500px; margin: 20px auto;"></div>
+    <hr>
+    <h4>德州历史AQI指数</h4>
+    <span>选择月份</span>
+    <select id="select-month" onchange='changeChartTwoMonth(this[selectedIndex].value);'>
+        <option value ='2013-12'>2013-12</option>
+        <option value ='2014-01'>2014-01</option>
+        <option value ='2014-02'>2014-02</option>
+        <option value ='2014-03'>2014-03</option>
+        <option value ='2014-04'>2014-04</option>
+        <option value ='2014-05'>2014-05</option>
+        <option value ='2014-06'>2014-06</option>
+        <option value ='2014-07'>2014-07</option>
+        <option value ='2014-08'>2014-08</option>
+        <option value ='2014-09'>2014-09</option>
+        <option value ='2014-10'>2014-10</option>
+        <option value ='2014-11' selected="">2014-11</option>
+        <option value ='2014-12'>2014-12</option>
+        <option value ='2015-01'>2015-01</option>
+        <option value ='2015-02'>2015-02</option>
+        <option value ='2015-03'>2015-03</option>
+        <option value ='2015-04'>2015-04</option>
+        <option value ='2015-05'>2015-05</option>
+        <option value ='2015-06'>2015-06</option>
+        <option value ='2015-07'>2015-07</option>
+        <option value ='2015-08'>2015-08</option>
+        <option value ='2015-09'>2015-09</option>
+        <option value ='2015-10'>2015-10</option>
+        <option value ='2015-11'>2015-11</option>
+        <option value ='2015-12'>2015-12</option>
+        <option value ='2016-01'>2016-01</option>
+        <option value ='2016-02'>2016-02</option>
+        <option value ='2016-03'>2016-03</option>
+        <option value ='2016-04'>2016-04</option>
+        <option value ='2016-05'>2016-05</option>
+        <option value ='2016-06'>2016-06</option>
+        <option value ='2016-07'>2016-07</option>
+        <option value ='2016-08'>2016-08</option>
+        <option value ='2016-09'>2016-09</option>
+        <option value ='2016-10'>2016-10</option>
+        <option value ='2016-11'>2016-11</option>
+        <option value ='2016-12'>2016-12</option>
+        <option value ='2017-01'>2017-01</option>
+        <option value ='2017-02'>2017-02</option>
+        <option value ='2017-03'>2017-03</option>
+        <option value ='2017-04'>2017-04</option>
+        <option value ='2017-05'>2017-05</option>
+        <option value ='2017-06'>2017-06</option>
+        <option value ='2017-07'>2017-07</option>
+        <option value ='2017-08'>2017-08</option>
+        <option value ='2017-09'>2017-09</option>
+        <option value ='2017-10'>2017-10</option>
+        <option value ='2017-11'>2017-11</option>
+        <option value ='2017-12'>2017-12</option>
+        <option value ='2018-01'>2018-01</option>
+        <option value ='2018-02'>2018-02</option>
+        <option value ='2018-03'>2018-03</option>
+        <option value ='2018-04'>2018-04</option>
+        <option value ='2018-05'>2018-05</option>
+        <option value ='2018-06'>2018-06</option>
+        <option value ='2018-07'>2018-07</option>
+        <option value ='2018-08'>2018-08</option>
+        <option value ='2018-09'>2018-09</option>
+        <option value ='2018-10'>2018-10</option>
+        <option value ='2018-11'>2018-11</option>
+        <option value ='2018-12'>2018-12</option>
+        <option value ='2019-01'>2019-01</option>
+        <option value ='2019-02'>2019-02</option>
+        <option value ='2019-03'>2019-03</option>
+        <option value ='2019-04'>2019-04</option>
+        <option value ='2019-05'>2019-05</option>
+        <option value ='2019-06'>2019-06</option>
+        <option value ='2019-07'>2019-07</option>
+        <option value ='2019-08'>2019-08</option>
+        <option value ='2019-09'>2019-09</option>
+        <option value ='2019-10'>2019-10</option>
+        <option value ='2019-11'>2019-11</option>
+        <option value ='2019-12'>2019-12</option>
+        <option value ='2020-01'>2020-01</option>
+        <option value ='2020-02'>2020-02</option>
+        <option value ='2020-03'>2020-03</option>
+        <option value ='2020-04'>2020-04</option>
+        <option value ='2020-05'>2020-05</option>
+        <option value ='2020-06'>2020-06</option>
+    </select>
+    <div id="chart-two" style="width: 100%;height:500px; margin: 20px auto;"></div>
+
+    <script type="text/javascript">
+    	// chart one ===============
+        var chartOne = echarts.init(document.getElementById('chart-one'));
+
+        chartOne.setOption(option = {
+            title: {
+                text: '德州历史PM2.5'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                data: global_all.map(function (item) {
+                    return item['time_point'];
+                })
+            },
+            yAxis: {
+                splitLine: {
+                    show: false
+                }
+            },
+            toolbox: {
+                left: 'center',
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [{
+                startValue: '2016-09-09',
+                // endValue: '2019-08-11'
+            }, {
+                type: 'inside'
+            }],
+            visualMap: {
+                top: 10,
+                right: 10,
+                pieces: [{
+                    gt: 0,
+                    lte: 50,
+                    color: '#096'
+                }, {
+                    gt: 50,
+                    lte: 100,
+                    color: '#ffde33'
+                }, {
+                    gt: 100,
+                    lte: 150,
+                    color: '#ff9933'
+                }, {
+                    gt: 150,
+                    lte: 200,
+                    color: '#cc0033'
+                }, {
+                    gt: 200,
+                    lte: 300,
+                    color: '#660099'
+                }, {
+                    gt: 300,
+                    color: '#7e0023'
+                }],
+                outOfRange: {
+                    color: '#999'
+                }
+            },
+            series: {
+                name: 'PM2.5',
+                type: 'line',
+                data: global_all.map(function (item) {
+                    return item['pm2_5'];
+                }),
+                markLine: {
+                    silent: true,
+                    data: [{
+                        yAxis: 50
+                    }, {
+                        yAxis: 100
+                    }, {
+                        yAxis: 150
+                    }, {
+                        yAxis: 200
+                    }, {
+                        yAxis: 300
+                    }]
+                }
+            }
+        });
+
+        // chart two ===============
+        String.prototype.startWith = function(str){     
+            var reg=new RegExp("^"+str);     
+            return reg.test(this);        
+        } 
+
+        function changeChartTwoMonth(month) {
+            var monthData = [];
+
+            for (var i of global_all) {
+                if (i['time_point'].startWith(month)) {
+                    monthData.push([
+                       i['time_point'].substr(-2),
+                       i['aqi'], 
+                       i['pm2_5'], 
+                       i['pm10'], 
+                       i['co'], 
+                       i['no2'], 
+                       i['so2'], 
+                       i['quality']
+                    ])
+                }
+            }
+
+            setOptionTwo(month, monthData);
+        }
+
+        function setOptionTwo(month, monthData) {
+            var chartTwo = echarts.init(document.getElementById('chart-two'));
+
+            var schema = [
+                {name: 'date', index: 0, text: ''},
+                {name: 'AQIindex', index: 1, text: 'AQI指数'},
+                {name: 'PM25', index: 2, text: 'PM2.5'},
+                {name: 'PM10', index: 3, text: 'PM10'},
+                {name: 'CO', index: 4, text: '一氧化碳（CO）'},
+                {name: 'NO2', index: 5, text: '二氧化氮（NO2）'},
+                {name: 'SO2', index: 6, text: '二氧化硫（SO2）'}
+            ];
+
+            var itemStyle = {
+                opacity: 0.8,
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            };
+
+            optionTwo = {
+                backgroundColor: '#404a59',
+                color: '#dd4444',
+                legend: {
+                    top: 10,
+                    data: '德州',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 16
+                    }
+                },
+                grid: {
+                    left: '10%',
+                    right: 150,
+                    top: '18%',
+                    bottom: '10%'
+                },
+                tooltip: {
+                    padding: 10,
+                    backgroundColor: '#222',
+                    borderColor: '#777',
+                    borderWidth: 1,
+                    formatter: function (obj) {
+                        var value = obj.value;
+                        return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">'
+                            + obj.seriesName + ' ' + value[0] + '日：'
+                            + value[7]
+                            + '</div>'
+                            + schema[1].text + '：' + value[1] + '<br>'
+                            + schema[2].text + '：' + value[2] + '<br>'
+                            + schema[3].text + '：' + value[3] + '<br>'
+                            + schema[4].text + '：' + value[4] + '<br>'
+                            + schema[5].text + '：' + value[5] + '<br>'
+                            + schema[6].text + '：' + value[6] + '<br>';
+                    }
+                },
+                xAxis: {
+                    type: 'value',
+                    name: '日期',
+                    nameGap: 16,
+                    nameTextStyle: {
+                        color: '#fff',
+                        fontSize: 14
+                    },
+                    max: 31,
+                    splitLine: {
+                        show: false
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#eee'
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: month + ' AQI指数',
+                    nameLocation: 'end',
+                    nameGap: 20,
+                    nameTextStyle: {
+                        color: '#fff',
+                        fontSize: 16
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#eee'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                visualMap: [
+                {
+                    left: 'right',
+                    top: '10%',
+                    dimension: 2,
+                    min: 0,
+                    max: 250,
+                    itemWidth: 30,
+                    itemHeight: 120,
+                    calculable: true,
+                    precision: 0.1,
+                    text: ['圆形大小：PM2.5'],
+                    textGap: 30,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    inRange: {
+                        symbolSize: [10, 70]
+                    },
+                    outOfRange: {
+                        symbolSize: [10, 70],
+                        color: ['rgba(255,255,255,.2)']
+                    },
+                    controller: {
+                        inRange: {
+                            color: ['#c23531']
+                        },
+                        outOfRange: {
+                            color: ['#444']
+                        }
+                    }
+                },
+                {
+                    left: 'right',
+                    bottom: '5%',
+                    dimension: 6,
+                    min: 0,
+                    max: 50,
+                    itemHeight: 120,
+
+                    precision: 0.1,
+                    text: ['明暗：AQI'],
+                    textGap: 30,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    inRange: {
+                        colorLightness: [1, 0.5]
+                    },
+                    outOfRange: {
+                        color: ['rgba(255,255,255,.2)']
+                    },
+                    controller: {
+                        inRange: {
+                            color: ['#c23531']
+                        },
+                        outOfRange: {
+                            color: ['#444']
+                        }
+                    }
+                }
+                ],
+                series: {
+                    name: month,
+                    type: 'scatter',
+                    itemStyle: itemStyle,
+                    data: monthData
+                }
+            };
+
+            chartTwo.setOption(optionTwo)
+        }
+
+        // init select change
+        changeChartTwoMonth('2014-11')
+    </script>
+</body>
+</html>

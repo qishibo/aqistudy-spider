@@ -1973,7 +1973,7 @@ getFromServer(method, param, function(obj) {
   // console.log(obj['data']['items'][0]);
   // console.log(obj)
 
-  require('fs').writeFile(`${param.city}_${param.month}.json`, JSON.stringify(obj), function (err) {
+  require('fs').writeFile(`json/${param.city}_${param.month}.json`, JSON.stringify(obj), function (err) {
     err && console.log(`${param.city}_${param.month}.json Write Failed........`);
   });
 }, 6);
