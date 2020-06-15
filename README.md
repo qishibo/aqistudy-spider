@@ -1,5 +1,7 @@
 
  # Spider Of [aqistudy.cn]
+ 
+ Visible charts in [https://qii404.me/aqistudy-spider/views/](https://qii404.me/aqistudy-spider/views/)
 
  ## Run:
 
