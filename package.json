@@ -4,7 +4,7 @@
   "description": "",
   "main": "ttt.js",
   "dependencies": {
-    "jquery": "^1.11.3",
+    "jquery": "^3.5.0",
     "jsdom__no_cors": "^11.1.5",
     "node-localstorage": "^2.1.6"
   },
